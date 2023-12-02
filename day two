@@ -1,0 +1,81 @@
+games=open("input",'r')
+red=12
+green=13
+blue=14
+colours={'g':'green','r':'red','b':'blue'}
+colour=[]
+for key, value in colours.items():
+    colour.append(value)
+print(colour)
+rounds=[]
+for round in games:
+    colon=round.index(':')
+    rounds.append(round[colon+1:-1])
+for round in rounds:
+    temp=round
+    temps=round.split(';')
+    rounds[rounds.index(temp)]=temps
+for round in rounds:
+    for inst in round:
+        temp=inst
+        temps=inst.split(',')
+        rounds[rounds.index(round)][round.index(temp)]=temps
+maxround=[]
+for game in rounds:
+    maxR=0
+    maxG=0
+    maxB=0
+
+    for round in game:
+        for draw in round:
+            if colour[0] in draw:
+                num=""
+                for characters in draw:
+                    if characters.isnumeric():
+                        num+=characters
+                if int(num)>maxG:
+                    maxG=int(num)
+            if colour[1] in draw:
+
+                num=""
+                for characters in draw:
+                    if characters.isnumeric():
+
+                        num+=characters
+
+                if int(num)>maxR:
+                    maxR=int(num)
+            if colour[2] in draw:
+                num=""
+                for characters in draw:
+                    if characters.isnumeric():
+                        num+=characters
+                if int(num)>maxB:
+                    maxB=int(num)
+    maxround.append([maxG,maxR,maxB])
+roundpossible=[]
+for game in maxround:
+    possible=True
+    if game[0]>green:
+       possible=False
+    if game[1]>red:
+        possible = False
+    if game[2]>blue:
+        possible = False
+    roundpossible.append(possible)
+sum=0
+for element in range(len(roundpossible)):
+    if roundpossible[element]==True:
+        sum+=element+1
+powerset=[]
+for round in maxround:
+    powerset.append(int(round[0])*int(round[1])*int(round[2]))
+totalset=0
+for power in powerset:
+    totalset+=power
+print(rounds)
+print(["g","r","b"],maxround)
+print(roundpossible)
+print(sum)
+print(powerset)
+print(totalset)
