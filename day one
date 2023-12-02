@@ -1,0 +1,31 @@
+
+file=open("../venv/calabration", "r")
+output=open("../venv/result", "w")
+global numberinfile
+def sorter():
+    letternum=["sp!cer","one","two","three", "four", "five", 'six', 'seven', 'eight','nine']
+    numberinfile=[]
+    for line in file:
+        numberinline: list[str]=[]
+        for a in range(len(line)):
+            if line[a].isnumeric():
+                numberinline.append(line[a])
+            else:
+                start=a
+                end=len(line)+1
+                for i in range(end-start):
+                    if line[start:start+i] in letternum:
+
+                        numberinline.append(str(letternum.index(line[start:start+i])))
+
+        solution=numberinline[0]+numberinline[-1]
+        numberinfile.append(solution)
+    return numberinfile
+number=sorter()
+sume=0
+
+
+for line in number:
+    output.write(line+"\n")
+    sume+=int(line)
+print(sume)
