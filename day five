@@ -1,0 +1,106 @@
+data = """seeds: 79 14 55 13
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4"""
+
+
+def set_mapper(data):
+    data = data.split("\n\n")
+    seeds = data.pop(0)[7:].split(" ")
+    # for dumb attempt at b
+
+
+    for se in range(len(seeds)):
+        seeds[se] = int(seeds[se])
+    #to get to work for part b then untab this section and set seeds variable above to seedset
+    '''
+    seeds=[]
+    starts=[]
+    ranges=[]
+    for se in range(len(seedset)//2):
+        starts.append(seedset[se*2])
+        ranges.append(seedset[se*2+1])
+    for se in range(len(starts)):
+
+        for i in range(ranges[se]):
+
+            seeds.append(starts[se]+i)
+'''
+    map = {}
+    tempmap = {}
+    mapholder = []
+    for step in data:
+        mapholder.append(step.split("\n")[1:])
+    for step in range(len(mapholder)):
+        tempmap = {}
+        for movement in mapholder[step]:
+            movement = movement.split(" ")
+            start = int(movement[1])
+            end = start + int(movement[2])
+            differnce = int(movement[0]) - start
+            tempmap[(f"{start}:{end}")] = differnce
+        map[step] = tempmap
+    return (seeds, map)
+
+
+def seed_mapper(data):
+    temp = set_mapper(data)
+    seeds = temp[0]
+    print(seeds)
+    print(len(seeds))
+    map = temp[1]
+    seedloc = []
+
+    for seed in seeds:
+        change = seed
+        for step in map.values():
+
+            for strend, dif in step.items():
+                if int(strend[0:strend.index(":")]) <= (change) < int(strend[strend.index(":") + 1:]):
+                    print(list(map.values()).index(step), change, change + dif)
+                    change = change + dif
+                    break
+                else:
+                    change = change
+                    print(list(map.values()).index(step), change)
+
+        seedloc.append(change)
+    return seedloc
+
+
+
+
+#this code is lazy as hell but words just and very slowly for part b
+
+print(set_mapper(data))
+print(seed_mapper(data))
+print(min(seed_mapper(data)))
