@@ -1,0 +1,35 @@
+data='''Time:        35     69     68     87
+Distance:   213   1168   1086   1248'''
+# just change this for part a 
+while "  " in data:
+    data=data.replace("  "," ")
+data=data.split('\n')
+tims=data[0].split(' ')
+dis=data[1].split(' ')
+tims.pop(0)
+dis.pop(0)
+times=""
+dist=""
+for i in tims:
+    times+=i
+for i in dis:
+    dist+=i
+
+pos=[]
+
+for time in range(1): 
+    temp=[]  
+    
+    for i in range(int(times)):
+        timetotrave=int(times)-i
+        distrav=timetotrave*i
+        
+        if distrav>int(dist):
+            temp.append(i)
+    pos.append(temp)
+sum=0
+for round in pos:
+    sum+=len(round)
+
+print(times,dist, sum)
+ 
