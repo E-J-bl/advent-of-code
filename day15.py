@@ -45,6 +45,6 @@ for index,bos in enumerate(boxes):
   for ind,lens in enumerate(bos):
     score+=int(lens[1])*(index+1)*(ind+1)
     print(score)
-print(boxes)
-print(total)
-print(score)
+print('the series of boxes in the lense series:',boxes)
+print('part 1:',total)
+print('part 2:',score)
